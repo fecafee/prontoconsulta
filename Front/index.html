@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Pronto Consulta</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Pronto Consulta</h1>
+    <nav>
+      <button onclick="openTab('agenda')">Agenda</button>
+      <button onclick="openTab('paciente')">Cadastrar Paciente</button>
+      <button onclick="openTab('medico')">Cadastrar Médico</button>
+      <button onclick="openTab('agendaMedico')">Cadastrar Agenda do Médico</button>
+      <button onclick="openTab('consulta')">Marcar Consulta</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="agenda" class="tab active">
+      <h2>Agenda</h2>
+      <div id="agendaList">Carregando...</div>
+    </section>
+
+    <section id="paciente" class="tab">
+      <h2>Cadastrar Paciente</h2>
+      <form onsubmit="cadastrarPaciente(event)">
+        <input name="nome" placeholder="Nome" required>
+        <input name="cpf" placeholder="CPF" required>
+        <input type="date" name="dataNascimento" required>
+        <input name="telefone" placeholder="Telefone" required>
+        <input name="email" placeholder="Email" required>
+        <input name="endereco" placeholder="Endereço" required>
+        <button type="submit">Cadastrar</button>
+      </form>
+      <p class="mensagem" id="msgPaciente"></p>
+    </section>
+
+    <section id="medico" class="tab">
+      <h2>Cadastrar Médico</h2>
+      <form onsubmit="cadastrarMedico(event)">
+        <input name="nome" placeholder="Nome" required>
+        <input name="crm" placeholder="CRM" required>
+        <input name="especialidade" placeholder="Especialidade" required>
+        <input name="telefone" placeholder="Telefone" required>
+        <input name="email" placeholder="Email" required>
+        <button type="submit">Cadastrar</button>
+      </form>
+      <p class="mensagem" id="msgMedico"></p>
+    </section>
+
+    <section id="agendaMedico" class="tab">
+      <h2>Cadastrar Agenda do Médico</h2>
+      <form onsubmit="cadastrarAgendaMedico(event)">
+        <label for="selectMedicoAgenda">Médico:</label>
+        <select id="selectMedicoAgenda" name="medicoId" required></select>
+
+        <label for="dataAgenda">Data:</label>
+        <input type="date" id="dataAgenda" name="data" required>
+
+        <label for="turnoAgenda">Turno:</label>
+        <select id="turnoAgenda" onchange="sugerirHorarios()">
+          <option value="">Escolher manualmente</option>
+          <option value="manha">Manhã (08h - 11h)</option>
+          <option value="tarde">Tarde (13h - 17h)</option>
+        </select>
+
+        <label for="horaAgenda">Horário (se for manual):</label>
+        <input type="time" id="horaAgenda" name="hora">
+
+        <div id="horariosGerados" style="margin-top: 10px;"></div>
+
+        <button type="submit">Cadastrar Horário(s)</button>
+      </form>
+      <p class="mensagem" id="msgAgendaMedico"></p>
+    </section>
+
+    <section id="consulta" class="tab">
+      <h2>Marcar Consulta</h2>
+      <form onsubmit="marcarConsulta(event)">
+        <label for="selectPaciente">Paciente:</label>
+        <select name="pacienteId" id="selectPaciente" required></select>
+
+        <label for="selectMedico">Médico:</label>
+        <select name="medicoId" id="selectMedico" required></select>
+
+        <label for="selectData">Data Disponível:</label>
+        <select name="data" id="selectData" required></select>
+
+        <label for="selectHora">Horário Disponível:</label>
+        <select name="hora" id="selectHora" required></select>
+
+        <button type="submit">Marcar</button>
+      </form>
+      <p class="mensagem" id="msgConsulta"></p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
